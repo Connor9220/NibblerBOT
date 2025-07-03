@@ -45,7 +45,7 @@ current_hash = get_git_hash(addon_dir) or "unknown"
 FreeCAD.Console.PrintMessage(f"– Current hash: {current_hash}\n")
 
 # load stored hash from prefs
-prefs     = FreeCAD.ParamGet("User parameter:NibblerBOT")
+prefs = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/NibblerBOT")
 last_hash = prefs.GetString("LastInstalledHash", "")
 FreeCAD.Console.PrintMessage(f"– Last hash   : {last_hash}\n")
 
