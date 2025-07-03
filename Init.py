@@ -4,7 +4,6 @@
 import sys
 import os
 import inspect
-import subprocess
 import FreeCAD
 
 # locate this Init.py
@@ -19,12 +18,9 @@ if addon_dir not in sys.path:
 def auto_update_repo(path):
     FreeCAD.Console.PrintMessage("– Auto-updating NibblerBOT via git pull…\n")
     try:
-        out = subprocess.check_output(
-            ["git", "pull", "--ff-only"],
-            cwd=path,
-            stderr=subprocess.STDOUT
-        )
-        FreeCAD.Console.PrintMessage(out.decode("utf-8"))
+        cmd = f'cd "{path}" && git pull --ff-only'
+        result = os.popen(cmd).read()
+        FreeCAD.Console.PrintMessage(result)
     except Exception as e:
         FreeCAD.Console.PrintError(f"Auto-update failed: {e}\n")
 
