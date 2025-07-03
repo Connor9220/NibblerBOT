@@ -5,7 +5,7 @@
     }
   ],
   "OrderOutputBy": "Fixture",
-  "Output": "/home/billy/Documents/FreeCAD/Gcode/%d.ngc",
+  "Output": "",
   "Post": "NibblerBot",
   "PostArgs": "--inches",
   "SetupSheet": {
