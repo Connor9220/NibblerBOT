@@ -1,0 +1,17 @@
+{
+  "attribute": {},
+  "name": "1/4\" 2 Flute Upcut Ball Nose Mill",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "CuttingEdgeHeight": "0.7500 in",
+    "Diameter": "0.2500 in",
+    "Flutes": 2,
+    "Length": "2.5000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.2500 in",
+    "Stickout": "1.2500 in"
+  },
+  "shape": "ballend.fcstd",
+  "shape-type": "Ballend",
+  "version": 2
+}

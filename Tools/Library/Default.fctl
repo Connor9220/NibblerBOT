@@ -1,0 +1,77 @@
+{
+  "tools": [
+    {
+      "nr": 10,
+      "path": "1_2in 90 V-Groove Bit.fctb"
+    },
+    {
+      "nr": 11,
+      "path": "1_4in 2 Flute Upcut Ball Nose Mill.fctb"
+    },
+    {
+      "nr": 12,
+      "path": "1_4in 2 Flute Upcut End Mill.fctb"
+    },
+    {
+      "nr": 13,
+      "path": "1_4in 2 Flute Compression End Mill.fctb"
+    },
+    {
+      "nr": 14,
+      "path": "2in 4 Flute Carbide Spoil Board Bit.fctb"
+    },
+    {
+      "nr": 15,
+      "path": "1_2in 2FL COMP End Mill NACRO 1.500 loc 4.000 oal.fctb"
+    },
+    {
+      "nr": 16,
+      "path": "1_4in 2FL COMP End Mill ASTRA 1.000 loc 2.500 oal.fctb"
+    },
+    {
+      "nr": 17,
+      "path": "1_4in 2 Flute Spiral Down Cut 1.000 loc 2.500 oal.fctb"
+    },
+    {
+      "nr": 18,
+      "path": "1_4in 2 Flute Ball Nose Downcut 1.000 loc 2.500 oal.fctb"
+    },
+    {
+      "nr": 20,
+      "path": "1-1_4in Bowl & Tray Bit 0.500 loc 2.250 oal.fctb"
+    },
+    {
+      "nr": 21,
+      "path": "3_4in Bowl & Tray Bit 0.625 loc 2.375 oal.fctb"
+    },
+    {
+      "nr": 22,
+      "path": "2in 3 Flute Carbide Insert Spoil Board Bit.fctb"
+    },
+    {
+      "nr": 24,
+      "path": "3_4in Point Roundover Bit 0.625 loc 2.250 oal.fctb"
+    },
+    {
+      "nr": 25,
+      "path": "1_2in Point Roundover Bit 0.500 loc 2.000 oal.fctb"
+    },
+    {
+      "nr": 30,
+      "path": "1_4in O Flut Carbide Upcut NARCO 1.000 loc 2.500 oal.fctb"
+    },
+    {
+      "nr": 31,
+      "path": "3_16in 2 Flute Spiral Down Cut 0.7500 loc 2.5000 oal.fctb"
+    },
+    {
+      "nr": 32,
+      "path": "3_16in 2 Flute Spiral Upcut 0.7500 loc 2.5000 oal.fctb"
+    },
+    {
+      "nr": 99,
+      "path": "Wired Touch Probe.fctb"
+    }
+  ],
+  "version": 1
+}

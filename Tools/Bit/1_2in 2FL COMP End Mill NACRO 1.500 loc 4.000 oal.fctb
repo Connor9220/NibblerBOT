@@ -1,0 +1,18 @@
+{
+  "attribute": {},
+  "name": "1/2\" 2FL COMP End Mill NACRO 1.500 loc 4.000 oal",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "CuttingEdgeHeight": "1.5000 in",
+    "Diameter": "0.5000 in",
+    "Flutes": 2,
+    "Length": "4.0000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.5000 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "2.1650 in"
+  },
+  "shape": "endmill.fcstd",
+  "shape-type": "Endmill",
+  "version": 2
+}
