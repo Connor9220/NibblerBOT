@@ -44,8 +44,8 @@ if not prefs.GetString("DefaultFilePath"):
     print(f"Set DefaultFilePath to: {freecad_dir}")
 
 if not prefs.GetString("LastFileToolLibrary"):
-    prefs.SetString("DefaultFilePath", default_tool_lib_file)
-    print(f"Set DefaultFilePath to: {default_tool_lib_file}")
+    prefs.SetString("LastFileToolLibrary", default_tool_lib_file)
+    print(f"Set LastFileToolLibrary to: {default_tool_lib_file}")
 
 
 # Set PostProcessor preferences
