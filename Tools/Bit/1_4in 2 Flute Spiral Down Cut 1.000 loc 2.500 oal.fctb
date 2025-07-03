@@ -1,18 +1,17 @@
 {
-  "attribute": {},
+  "version": 2,
   "name": "1/4\" 2 Flute Spiral Down Cut 1.000 loc 2.500 oal",
-  "parameter": {
-    "Chipload": "0.0000 in",
-    "CuttingEdgeHeight": "1.0000 in",
-    "Diameter": "0.2500 in",
-    "Flutes": 2,
-    "Length": "2.5000 in",
-    "Material": "Carbide",
-    "ShankDiameter": "0.2500 in",
-    "SpindleDirection": "Forward",
-    "Stickout": "1.4250 in"
-  },
   "shape": "endmill.fcstd",
-  "shape-type": "Endmill",
-  "version": 2
+  "parameter": {
+    "Diameter": "0.2500 in",
+    "Length": "2.5000 in",
+    "CuttingEdgeHeight": "1.0000 in",
+    "ShankDiameter": "0.2500 in",
+    "Stickout": "1.4250 in",
+    "Chipload": "0.0000 in",
+    "Flutes": 2,
+    "Material": "Carbide",
+    "SpindleDirection": "Forward"
+  },
+  "attribute": {}
 }

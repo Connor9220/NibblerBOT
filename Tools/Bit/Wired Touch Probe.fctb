@@ -1,14 +1,13 @@
 {
-  "attribute": {},
+  "version": 2,
   "name": "Wired Touch Probe",
+  "shape": "probe.fcstd",
   "parameter": {
     "Diameter": "2.000 mm",
     "Length": "3.6764 in",
-    "Material": "Carbide",
     "ShaftDiameter": "1.500 mm",
-    "SpindlePower": "False"
+    "SpindlePower": "False",
+    "Material": "Carbide"
   },
-  "shape": "probe.fcstd",
-  "shape-type": "Probe",
-  "version": 2
+  "attribute": {}
 }
