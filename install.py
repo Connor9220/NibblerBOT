@@ -40,8 +40,13 @@ if not prefs.GetString("LastPathToolShape"):
     print(f"Set LastPathToolShape to: {tool_shape_dir}")
 
 if not prefs.GetString("DefaultFilePath"):
+    prefs.SetString("DefaultFilePath", freecad_dir)
+    print(f"Set DefaultFilePath to: {freecad_dir}")
+
+if not prefs.GetString("LastFileToolLibrary"):
     prefs.SetString("DefaultFilePath", default_tool_lib_file)
     print(f"Set DefaultFilePath to: {default_tool_lib_file}")
+
 
 # Set PostProcessor preferences
 post_processor_blacklist = [
