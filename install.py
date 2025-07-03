@@ -1,7 +1,7 @@
 import FreeCAD, os, shutil
 
 # Get FreeCAD preferences
-prefs = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/Path")
+prefs = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/CAM")
 
 # Get user's home directory
 home_dir = os.path.expanduser("~")
@@ -124,12 +124,12 @@ else:
     print(f"Library.fctl not found in {os.path.join(source_dir, 'Tools')}. Skipping.")
 
 # Handle Post Processor
-macro_dir = os.path.join(home_dir, "Documents", "FreeCAD", "Macro")
+macro_dir = os.path.join(FreeCAD.getUserAppDataDir(), "Macro")
 if not os.path.exists(macro_dir):
     os.makedirs(macro_dir)
     print(f"Created Macro directory at: {macro_dir}")
 
-post_processor_source = os.path.join(source_dir, "PostProcessor", "NibblerBot.py")
+post_processor_source = os.path.join(source_dir, "PostProcessor", "NibblerBot_post.py")
 if os.path.exists(post_processor_source):
     shutil.copy(post_processor_source, macro_dir)
     print(f"Copied Post Processor to {macro_dir}")
