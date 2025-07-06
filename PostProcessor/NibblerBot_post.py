@@ -107,18 +107,15 @@ parser.add_argument(
 parser.add_argument(
     "--measure-tool",
     action="store_true",
-    help="Measure each tool used at the beginning of the program when block delete is turned off."
+    help="Measure each tool used at the beginning of the program when block delete is turned off.",
 )
 
 parser.add_argument(
-    "--job-author",
-    help="Job Author, used when posting to remote machine"
+    "--job-author", help="Job Author, used when posting to remote machine"
 )
 
 parser.add_argument(
-    "--no-remote-post",
-    action="store_true",
-    help="Don't post to remote machine"
+    "--no-remote-post", action="store_true", help="Don't post to remote machine"
 )
 
 TOOLTIP_ARGS = parser.format_help()
@@ -256,6 +253,56 @@ def export(objectslist, filename, argstring):
             )
             return None
 
+    missing_feed_speeds = []
+    for obj in objectslist:
+        if hasattr(obj, "Tool"):
+            tool = hasattr(obj, "Tool")
+            name = getattr(obj, "Label", None)
+            vert_feed = getattr(obj, "VertFeed", None)
+            horiz_feed = getattr(obj, "HorizFeed", None)
+            spindle_speed = getattr(obj, "SpindleSpeed", None)
+
+            if vert_feed == 0 or horiz_feed == 0 or spindle_speed == 0:
+                missing_feed_speeds.append(
+                    {
+                        "ToolController": tool,
+                        "Name": name,
+                        "VertFeed": vert_feed,
+                        "HorizFeed": horiz_feed,
+                        "SpindleSpeed": spindle_speed,
+                    }
+                )
+
+    if missing_feed_speeds:
+        dialog = QtWidgets.QDialog()
+        dialog.setWindowTitle("Missing Feed/Speeds")
+        dialog.resize(400, 300)
+        layout = QtWidgets.QVBoxLayout(dialog)
+
+        label = QtWidgets.QLabel(
+            "The following Tool Controllers have missing feeds/speed:"
+        )
+        layout.addWidget(label)
+
+        text_edit = QtWidgets.QTextEdit()
+        text_edit.setReadOnly(True)
+        for tc in missing_feed_speeds:
+            text_edit.append(f"{tc['Name']}")
+            if tc["VertFeed"] == 0:
+                text_edit.append("  Missing: Vertical Feed")
+            if tc["HorizFeed"] == 0:
+                text_edit.append("  Missing: Horizontal Feed")
+            if tc["SpindleSpeed"] == 0:
+                text_edit.append("  Missing: Spindle Speed")
+        layout.addWidget(text_edit)
+
+        button_box = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok)
+        button_box.accepted.connect(dialog.accept)
+        layout.addWidget(button_box)
+
+        dialog.exec_()
+        return None
+
     print("postprocessing...")
     gcode = ""
     blockDelete = False
@@ -274,7 +321,6 @@ def export(objectslist, filename, argstring):
     gcode += linenumber() + UNITS + "\n"
 
     for obj in objectslist:
-
         # Skip inactive operations
         if hasattr(obj, "Active"):
             if not obj.Active:
@@ -293,8 +339,8 @@ def export(objectslist, filename, argstring):
         for tool in tool_list:
             gcode += linenumber() + "; Tool: {}\n".format(int(tool))
 
-    #if len(tool_list) > 0:
-        # Ensure that the last tool printed is the first one used
+    # if len(tool_list) > 0:
+    # Ensure that the last tool printed is the first one used
     #    num_tools_to_print = min(len(tool_list), 12)
     #    tool_list = list(tool_list)
 
@@ -305,7 +351,6 @@ def export(objectslist, filename, argstring):
     #            gcode += "/ " + linenumber() + "M38\n"
 
     for obj in objectslist:
-
         # Skip inactive operations
         if hasattr(obj, "Active"):
             if not obj.Active:
@@ -377,14 +422,14 @@ def export(objectslist, filename, argstring):
 
         # turn coolant off if required
         if not coolantMode == "None":
-           if OUTPUT_COMMENTS:
-               if blockDelete:
-                   gcode += "/ "
-               gcode += linenumber() + "(Coolant Off:" + coolantMode + ")\n"
+            if OUTPUT_COMMENTS:
+                if blockDelete:
+                    gcode += "/ "
+                gcode += linenumber() + "(Coolant Off:" + coolantMode + ")\n"
 
-           if blockDelete:
-               gcode += "/ "
-           gcode += linenumber() + "M9" + "\n"
+            if blockDelete:
+                gcode += "/ "
+            gcode += linenumber() + "M9" + "\n"
 
         blockDelete = False
 
@@ -415,10 +460,9 @@ def export(objectslist, filename, argstring):
         gfile = pythonopen(filename, "w")
         gfile.write(final)
         gfile.close()
-        
 
     if REMOTE_POST:
-        if  prompt_and_upload(final, filename):
+        if prompt_and_upload(final, filename):
             return final
         else:
             return final
@@ -479,7 +523,6 @@ def parse(pathobj):
             out += parse(p)
         return out
     else:  # parsing simple path
-
         # groups might contain non-path things like stock.
         if not hasattr(pathobj, "Path"):
             return out
@@ -488,7 +531,6 @@ def parse(pathobj):
         #     out += linenumber() + "(" + pathobj.Label + ")\n"
 
         for c in PathUtils.getPathWithPlacement(pathobj).Commands:
-
             outstring = []
             if blockDelete:
                 outstring.append("/ ")
@@ -559,11 +601,10 @@ def parse(pathobj):
 
             # Check for Tool Change:
             if command == "M6":
-
                 if blockDelete:
                     out += "/ "
 
-                #outstring.pop(0)
+                # outstring.pop(0)
 
                 # stop the spindle
 
@@ -571,7 +612,7 @@ def parse(pathobj):
                 for line in TOOL_CHANGE.splitlines(True):
                     out += linenumber() + line
 
-                #outstring.append( "M6".format(int(c.Parameters["T"])) )
+                # outstring.append( "M6".format(int(c.Parameters["T"])) )
 
                 # add height offset
                 if USE_TLO:
@@ -599,6 +640,7 @@ def parse(pathobj):
 
         return out
 
+
 def optimize_gcode(gcode_string, optimize=True, xy_before_z=True):
     lines = gcode_string.strip().split('\n')
     modified_lines = []
@@ -623,7 +665,9 @@ def optimize_gcode(gcode_string, optimize=True, xy_before_z=True):
             if 'Z' in line and ('X' in line or 'Y' in line) and not is_comment:
                 g_code_prefix = line.split()[0]
                 parts = line.split()
-                xy_parts = ' '.join([part for part in parts if 'X' in part or 'Y' in part])
+                xy_parts = ' '.join(
+                    [part for part in parts if 'X' in part or 'Y' in part]
+                )
                 z_part = ' '.join([part for part in parts if 'Z' in part])
                 modified_lines.append(f"{g_code_prefix} {xy_parts}")
                 modified_lines.append(f"{g_code_prefix} {z_part}")
@@ -669,6 +713,7 @@ def optimize_gcode(gcode_string, optimize=True, xy_before_z=True):
 
     return '\n'.join(modified_lines)
 
+
 def prompt_username_selection(usernames):
     global selected_username
 
@@ -695,7 +740,9 @@ def prompt_username_selection(usernames):
     layout.addWidget(combo_box)
 
     # Add the button box with centered buttons
-    button_box = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel)
+    button_box = QtWidgets.QDialogButtonBox(
+        QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+    )
     button_box.accepted.connect(dialog.accept)
     button_box.rejected.connect(dialog.reject)
 
@@ -715,6 +762,7 @@ def prompt_username_selection(usernames):
         selected_username = None
 
     return selected_username
+
 
 class FileManagerDialog(QtWidgets.QDialog):
     def __init__(self, username, file_content, filename):
@@ -738,8 +786,12 @@ class FileManagerDialog(QtWidgets.QDialog):
         self.file_list = QtWidgets.QTreeView()
         self.file_list.setRootIsDecorated(False)  # No tree expand/collapse indicators
         self.file_list.setAlternatingRowColors(True)  # For better row visibility
-        self.file_list.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)  # Row-based selection
-        self.file_list.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # Disable editing
+        self.file_list.setSelectionBehavior(
+            QtWidgets.QAbstractItemView.SelectRows
+        )  # Row-based selection
+        self.file_list.setEditTriggers(
+            QtWidgets.QAbstractItemView.NoEditTriggers
+        )  # Disable editing
         self.layout().addWidget(self.file_list)
 
         # Connect double-click signal to handler
@@ -760,7 +812,9 @@ class FileManagerDialog(QtWidgets.QDialog):
 
         # Enable sorting and set default sort order
         self.file_list.setSortingEnabled(True)
-        self.file_list.sortByColumn(1, QtCore.Qt.DescendingOrder)  # Default to sorting by "Date Modified" in descending order
+        self.file_list.sortByColumn(
+            1, QtCore.Qt.DescendingOrder
+        )  # Default to sorting by "Date Modified" in descending order
 
         # File Name Input
         self.file_name_input = QtWidgets.QLineEdit(self.filename)
@@ -768,7 +822,9 @@ class FileManagerDialog(QtWidgets.QDialog):
         self.layout().addWidget(self.file_name_input)
 
         # Buttons
-        button_box = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel)
+        button_box = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+        )
         button_box.accepted.connect(self.handle_save)
         button_box.rejected.connect(self.reject)
         self.layout().addWidget(button_box)
@@ -778,10 +834,7 @@ class FileManagerDialog(QtWidgets.QDialog):
 
     def fetch_files(self):
         url = f"{BASE_URL}api/v1/files/list.php"
-        data = {
-            'user': self.username,
-            'location': self.current_path
-        }
+        data = {'user': self.username, 'location': self.current_path}
         try:
             response = requests.post(url, data=data)
             response.raise_for_status()
@@ -797,7 +850,9 @@ class FileManagerDialog(QtWidgets.QDialog):
 
         data = self.fetch_files()
         if not isinstance(data, dict):
-            QtWidgets.QMessageBox.critical(self, "Error", "Invalid data format received from API.")
+            QtWidgets.QMessageBox.critical(
+                self, "Error", "Invalid data format received from API."
+            )
             return
 
         dirs = data.get('dirs', [])
@@ -806,11 +861,13 @@ class FileManagerDialog(QtWidgets.QDialog):
         folder_icon = self.style().standardIcon(QtWidgets.QStyle.SP_DirIcon)
         file_icon = self.style().standardIcon(QtWidgets.QStyle.SP_FileIcon)
 
-    # Add "Navigate Up" row if not at the root level
+        # Add "Navigate Up" row if not at the root level
         if self.current_path != "/":
             navigate_up_item = QtGui.QStandardItem(folder_icon, "..")
             navigate_up_item.setEditable(False)
-            self.model.appendRow([navigate_up_item, QtGui.QStandardItem(""), QtGui.QStandardItem("")])
+            self.model.appendRow(
+                [navigate_up_item, QtGui.QStandardItem(""), QtGui.QStandardItem("")]
+            )
 
         # Sort directories alphabetically
         dirs.sort(key=str.lower)
@@ -820,7 +877,9 @@ class FileManagerDialog(QtWidgets.QDialog):
             folder_item = QtGui.QStandardItem(folder_icon, directory)
             folder_item.setEditable(False)
             # Size column intentionally left empty for folders
-            self.model.appendRow([folder_item, QtGui.QStandardItem(""), QtGui.QStandardItem("")])
+            self.model.appendRow(
+                [folder_item, QtGui.QStandardItem(""), QtGui.QStandardItem("")]
+            )
 
         # Add files
         for file in files:
@@ -838,20 +897,25 @@ class FileManagerDialog(QtWidgets.QDialog):
             # Add space between digits and size indicator
             size_str = re.sub(r'(\d)([a-zA-Z])', r'\1 \2', size_str.strip())
             # size_str = re.sub(r'(\d)([a-zA-Z])', r'\1 \2', size_str.strip()).lower().replace('b', 'bytes')
-            size_str = re.sub(r'\bB\b', 'bytes', size_str)  # Replace standalone 'B' with 'BYTES'
+            size_str = re.sub(
+                r'\bB\b', 'bytes', size_str
+            )  # Replace standalone 'B' with 'BYTES'
             size_item = QtGui.QStandardItem(size_str)
             self.model.appendRow([file_item, date_item, size_item])
 
         self.file_list.clearSelection()
         self.file_name_input.setFocus()
 
-
     def handle_item_double_click(self, index):
-        source_index = self.proxy_model.mapToSource(index)  # Map proxy index to source model index
+        source_index = self.proxy_model.mapToSource(
+            index
+        )  # Map proxy index to source model index
         row = source_index.row()  # Get the row number
 
         # Retrieve the first column item (representing the main identifier, e.g., folder or file name)
-        item = self.model.item(row, 0)  # Assuming column 0 is where the main name or ".." resides
+        item = self.model.item(
+            row, 0
+        )  # Assuming column 0 is where the main name or ".." resides
         if not item:
             return
 
@@ -869,18 +933,24 @@ class FileManagerDialog(QtWidgets.QDialog):
             # Assume column 2 contains the "Date Modified" to differentiate folders from files
             is_folder = not self.model.item(row, 1).text()
             if is_folder:
-                self.current_path = os.path.join(self.current_path, item_name).replace("\\", "/")
+                self.current_path = os.path.join(self.current_path, item_name).replace(
+                    "\\", "/"
+                )
                 self.refresh_file_list()
             else:
                 self.file_name_input.setText(item_name)
                 self.handle_save()
 
     def handle_single_click(self, index):
-        source_index = self.proxy_model.mapToSource(index)  # Map proxy index to source model index
+        source_index = self.proxy_model.mapToSource(
+            index
+        )  # Map proxy index to source model index
         row = source_index.row()  # Get the row number
 
         # Retrieve the first column item (representing the main identifier, e.g., folder or file name)
-        item = self.model.item(row, 0)  # Assuming column 0 is where the main name or ".." resides
+        item = self.model.item(
+            row, 0
+        )  # Assuming column 0 is where the main name or ".." resides
         if not item:
             return
 
@@ -890,8 +960,8 @@ class FileManagerDialog(QtWidgets.QDialog):
         # Assume column 2 contains the "Date Modified" to differentiate folders from files
         is_folder = not self.model.item(row, 1).text()
         if not is_folder:
-                self.file_name_input.setText(item_name)
-                self.file_name_input.setFocus()
+            self.file_name_input.setText(item_name)
+            self.file_name_input.setFocus()
 
     def navigate_up(self):
         if self.current_path != "/":
@@ -902,8 +972,10 @@ class FileManagerDialog(QtWidgets.QDialog):
 
     def prompt_overwrite(self):
         response = QtWidgets.QMessageBox.question(
-            self, "Overwrite File", "File already exists. Do you want to overwrite it?",
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
+            self,
+            "Overwrite File",
+            "File already exists. Do you want to overwrite it?",
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
         )
         if response == QtWidgets.QMessageBox.Yes:
             self.accept()
@@ -911,12 +983,16 @@ class FileManagerDialog(QtWidgets.QDialog):
     def handle_save(self):
         proxy_model = self.file_list.model()  # Get the proxy model
         source_model = proxy_model.sourceModel()  # Access the underlying source model
-        root_node = source_model.invisibleRootItem()  # Get the root node of the source model
+        root_node = (
+            source_model.invisibleRootItem()
+        )  # Get the root node of the source model
         number_of_files = root_node.rowCount()
 
         existing_files = []
         for i in range(number_of_files):
-            file_item = root_node.child(i, 0)  # Assuming file names are in the second column
+            file_item = root_node.child(
+                i, 0
+            )  # Assuming file names are in the second column
             if file_item:
                 file_name = file_item.text()
                 existing_files.append(file_name)
@@ -927,6 +1003,7 @@ class FileManagerDialog(QtWidgets.QDialog):
         else:
             self.accept()
 
+
 def prompt_and_upload(file_content, filename):
     # app = QtWidgets.QApplication([])
 
@@ -936,7 +1013,7 @@ def prompt_and_upload(file_content, filename):
         return False
 
     # Prompt for username
-    #username = simpledialog.askstring("Input", "Please enter your username:", parent=root)
+    # username = simpledialog.askstring("Input", "Please enter your username:", parent=root)
     if JOB_AUTHOR == "":
         username = prompt_username_selection(usernames)
     else:
@@ -951,7 +1028,7 @@ def prompt_and_upload(file_content, filename):
     if filename.endswith('.FCStd'):
         filename = filename.replace('.FCStd', '.ngc')
 
-    print("Filename:",filename)
+    print("Filename:", filename)
 
     dialog = FileManagerDialog(username, file_content, filename)
     if dialog.exec_():
@@ -961,13 +1038,16 @@ def prompt_and_upload(file_content, filename):
             print("No file name provided. Upload cancelled.")
             return False
 
-        response = upload_file(username, file_content, selected_file_name, selected_path)
+        response = upload_file(
+            username, file_content, selected_file_name, selected_path
+        )
         if response.status_code == 200:
             print("Upload successful!")
             return True
         else:
             print("Upload failed!", response.status_code, response.text)
             return False
+
 
 def upload_file(username, file_content, filename, path):
     url = f"{BASE_URL}api/v1/plugins/upload"
@@ -978,9 +1058,10 @@ def upload_file(username, file_content, filename, path):
         'uploader': 'direct',
         'filename': filename,
         'config': '{}',
-        'options': '{}'
+        'options': '{}',
     }
     return requests.post(url, files=files, data=data)
+
 
 def fetch_usernames():
     url = f"{BASE_URL}api/v1/users/list"
@@ -994,6 +1075,7 @@ def fetch_usernames():
         print(f"Error fetching usernames: {e}")
     return []
 
+
 class CustomSortModel(QtCore.QSortFilterProxyModel):
     def __init__(self, sort_column=1, *args, **kwargs):  # Default sort by name
         super(CustomSortModel, self).__init__(*args, **kwargs)
@@ -1005,8 +1087,12 @@ class CustomSortModel(QtCore.QSortFilterProxyModel):
 
     def lessThan(self, left, right):
         # Check if the item is a folder or a file based on the 'Date Modified' (typically, folders might have this empty)
-        left_date = self.sourceModel().data(left.sibling(left.row(), 1), QtCore.Qt.DisplayRole)
-        right_date = self.sourceModel().data(right.sibling(right.row(), 1), QtCore.Qt.DisplayRole)
+        left_date = self.sourceModel().data(
+            left.sibling(left.row(), 1), QtCore.Qt.DisplayRole
+        )
+        right_date = self.sourceModel().data(
+            right.sibling(right.row(), 1), QtCore.Qt.DisplayRole
+        )
 
         left_is_folder = not left_date
         right_is_folder = not right_date
@@ -1017,14 +1103,26 @@ class CustomSortModel(QtCore.QSortFilterProxyModel):
 
         # Sorting by the designated column when both are either files or folders
         if self.sort_column == 0:  # Sort by name
-            left_data = self.sourceModel().data(left.sibling(left.row(), 0), QtCore.Qt.DisplayRole)
-            right_data = self.sourceModel().data(right.sibling(right.row(), 0), QtCore.Qt.DisplayRole)
+            left_data = self.sourceModel().data(
+                left.sibling(left.row(), 0), QtCore.Qt.DisplayRole
+            )
+            right_data = self.sourceModel().data(
+                right.sibling(right.row(), 0), QtCore.Qt.DisplayRole
+            )
         elif self.sort_column == 1:  # Sort by date
             left_data = QtCore.QDateTime.fromString(left_date, "yyyy-MM-dd HH:mm:ss")
             right_data = QtCore.QDateTime.fromString(right_date, "yyyy-MM-dd HH:mm:ss")
         elif self.sort_column == 2:  # Sort by size
-            left_data = self.extract_size(self.sourceModel().data(left.sibling(left.row(), 2), QtCore.Qt.DisplayRole))
-            right_data = self.extract_size(self.sourceModel().data(right.sibling(right.row(), 2), QtCore.Qt.DisplayRole))
+            left_data = self.extract_size(
+                self.sourceModel().data(
+                    left.sibling(left.row(), 2), QtCore.Qt.DisplayRole
+                )
+            )
+            right_data = self.extract_size(
+                self.sourceModel().data(
+                    right.sibling(right.row(), 2), QtCore.Qt.DisplayRole
+                )
+            )
         else:
             return False  # Default fallback
 
@@ -1047,6 +1145,7 @@ class CustomSortModel(QtCore.QSortFilterProxyModel):
             return float(size_str.replace('BYTES', '').strip())
         else:
             return float(size_str)  # Assume bytes if no unit is specified
+
 
 class ComboBoxWithSearch(QtWidgets.QComboBox):
     def __init__(self, *args, **kwargs):
