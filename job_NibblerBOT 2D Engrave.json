@@ -5,19 +5,19 @@
     }
   ],
   "OrderOutputBy": "Fixture",
-  "Output": "",
+   "Output": "",
   "Post": "NibblerBot",
   "PostArgs": "--inches",
   "SetupSheet": {
     "ClearanceHeightExpression": "OpStockZMax+${SetupSheet}.ClearanceHeightOffset",
-    "ClearanceHeightOffset": "6.0000 in",
+    "ClearanceHeightOffset": "7.0000 in",
     "FinalDepthExpression": "OpFinalDepth",
     "HorizRapid": "1000.0000 in/min",
     "Profile": {
       "HandleMultipleFeatures": "Individually"
     },
     "SafeHeightExpression": "OpStockZMax+${SetupSheet}.SafeHeightOffset",
-    "SafeHeightOffset": "0.2500 in",
+    "SafeHeightOffset": "1.0000 in",
     "StartDepthExpression": "OpStartDepth",
     "StepDownExpression": "OpToolDiameter/2",
     "VertRapid": "1000.0000 in/min"
@@ -30,7 +30,7 @@
     "xpos": "0.0 mm",
     "yneg": "0.0 mm",
     "ypos": "0.0 mm",
-    "zneg": "0.0 mm",
+    "zneg": "6.35 mm",
     "zpos": "0.0 mm"
   },
   "Tolerance": "0.01016",

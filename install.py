@@ -134,19 +134,22 @@ if not os.path.exists(macro_dir):
     os.makedirs(macro_dir)
     print(f"Created Macro directory at: {macro_dir}")
 
-post_processor_source = os.path.join(source_dir, "PostProcessor", "NibblerBot_post.py")
+post_processor_source = os.path.join(source_dir, "PostProcessor", "NibblerBOT_post.py")
 if os.path.exists(post_processor_source):
     shutil.copy(post_processor_source, macro_dir)
     print(f"Copied Post Processor to {macro_dir}")
 else:
     print(f"Post Processor not found at {post_processor_source}. Skipping.")
 
-# Handle job_NibblerBot.json
-job_file_source = os.path.join(source_dir, "job_NibblerBot.json")
-if os.path.exists(job_file_source):
-    shutil.copy(job_file_source, freecad_dir)
-    print(f"Copied job_NibblerBot.json to {freecad_dir}")
+# Handle job_NibblerBOT.json
+job_files = [f for f in os.listdir(source_dir) if f.startswith("job_") and f.endswith(".json")]
+if job_files:
+    for job_file in job_files:
+        job_file_source = os.path.join(source_dir, job_file)
+        if os.path.isfile(job_file_source):
+            shutil.copy(job_file_source, freecad_dir)
+            print(f"Copied {job_file} to {freecad_dir}")
 else:
-    print(f"job_NibblerBot.json not found at {job_file_source}. Skipping.")
+    print(f"No job_*.json files found in {source_dir}. Skipping.")
 
 print("Installation complete!")
