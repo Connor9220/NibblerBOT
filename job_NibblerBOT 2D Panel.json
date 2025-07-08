@@ -6,7 +6,7 @@
   ],
   "OrderOutputBy": "Fixture",
    "Output": "",
-  "Post": "NibblerBot",
+  "Post": "NibblerBOT",
   "PostArgs": "--inches",
   "SetupSheet": {
     "ClearanceHeightExpression": "OpStockZMax+${SetupSheet}.ClearanceHeightOffset",
