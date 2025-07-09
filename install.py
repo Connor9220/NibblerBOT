@@ -96,7 +96,7 @@ if not prefs.GetFloat("GeometryTolerance"):
     prefs.SetFloat("GeometryTolerance", geometry_tolerance)
     print(f"Set GeometryTolerance to: {geometry_tolerance}")
 
-post_processor_default = "NibblerBot"
+post_processor_default = "NibblerBOT"
 if not prefs.GetString("PostProcessorDefault"):
     prefs.SetString("PostProcessorDefault", post_processor_default)
     print(f"Set PostProcessorDefault to: {post_processor_default}")
