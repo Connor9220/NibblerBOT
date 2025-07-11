@@ -5,9 +5,10 @@
   "parameter": {
     "Diameter": "2.000 mm",
     "Length": "3.6764 in",
-    "ShaftDiameter": "1.500 mm",
+    "ShaftDiameter": "1.500 mm"
+  },
+  "attribute": {
     "SpindlePower": "False",
     "Material": "Carbide"
-  },
-  "attribute": {}
+  }
 }

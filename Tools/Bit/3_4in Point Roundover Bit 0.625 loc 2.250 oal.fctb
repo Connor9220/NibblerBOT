@@ -9,10 +9,11 @@
     "CuttingRadius": "0.3750 in",
     "ShankDiameter": "0.5000 in",
     "TipDiameter": "0.0000 in",
-    "Stickout": "1.1250 in",
+    "Stickout": "1.1250 in"
+  },
+  "attribute": {
     "Chipload": "0.0000 in",
     "Flutes": 2,
     "Material": "Carbide"
-  },
-  "attribute": {}
+  }
 }

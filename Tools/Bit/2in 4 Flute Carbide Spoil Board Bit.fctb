@@ -7,11 +7,12 @@
     "Length": "2.5000 in",
     "CuttingEdgeHeight": "0.5000 in",
     "ShankDiameter": "0.5000 in",
-    "Stickout": "0.7500 in",
+    "Stickout": "0.7500 in"
+  },
+  "attribute": {
     "Chipload": "0.0000 in",
     "Flutes": 4,
     "Material": "Carbide",
     "SpindleDirection": "Forward"
-  },
-  "attribute": {}
+  }
 }
