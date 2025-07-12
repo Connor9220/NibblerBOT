@@ -14,12 +14,12 @@
   <icon>icons/NibblerBOT.svg</icon>
 
   <content>
-    <addon>
+    <workbench>
       <subdirectory>./</subdirectory>
       <tag>cnc</tag>
       <tag>postprocessor</tag>
       <tag>tools</tag>
       <freecadmin>1.0.0</freecadmin>
-    </addon>
+    </workbench>
   </content>
 </package>
