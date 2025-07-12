@@ -5,13 +5,12 @@
     Plugin for FreeCAD to support the NibblerBOT CNC machine at Knox Makers.
     Provides up-to-date tool libraries, a custom post processor, job templates, and a PreferencePack for consistent configuration.
   </description>
-  <version>1.0.0</version>
-  <date>2025-07-11</date>
+  <version>2025.07.11</version>
+  <date>2025.07.11</date>
   <maintainer email="billy@knoxmakers.org">Billy Huddleston</maintainer>
   <license file="LICENSE.txt">MIT</license>
   <url type="repository" branch="main">https://github.com/Connor9220/NibblerBOT</url>
   <url type="bugtracker">https://github.com/Connor9220/NibblerBOT/issues</url>
-  <!-- Update the icon path if you have a custom icon -->
   <icon>icons/NibblerBOT.svg</icon>
 
   <content>
