@@ -8,7 +8,7 @@
   <version>1.0.0</version>
   <date>2025-07-11</date>
   <maintainer email="billy@knoxmakers.org">Billy Huddleston</maintainer>
-  <license file="LICENSE">LGPL-2.1-or-later</license>
+  <license file="LICENSE.txt">MIT</license>
   <url type="repository" branch="main">https://github.com/Connor9220/NibblerBOT</url>
   <url type="bugtracker">https://github.com/Connor9220/NibblerBOT/issues</url>
   <!-- Update the icon path if you have a custom icon -->
