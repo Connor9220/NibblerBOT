@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
+  <name>NibblerBOT</name>
+  <description>
+    Plugin for FreeCAD to support the NibblerBOT CNC machine at Knox Makers.
+    Provides up-to-date tool libraries, a custom post processor, job templates, and a PreferencePack for consistent configuration.
+  </description>
+  <version>1.0.0</version>
+  <date>2025-07-11</date>
+  <maintainer email="billy@knoxmakers.org">Knox Makers CNC Area Leads</maintainer>
+  <license file="LICENSE">LGPL-2.1-or-later</license>
+  <url type="repository" branch="main">https://github.com/Connor9220/NibblerBOT</url>
+  <url type="bugtracker">https://github.com/Connor9220/NibblerBOT/issues</url>
+  <!-- Update the icon path if you have a custom icon -->
+  <icon>icons/NibblerBOT.svg</icon>
+
+  <content>
+    <addon>
+      <subdirectory>./</subdirectory>
+      <tag>cnc</tag>
+      <tag>postprocessor</tag>
+      <tag>tools</tag>
+      <freecadmin>1.0.0</freecadmin>
+    </addon>
+  </content>
+</package>
