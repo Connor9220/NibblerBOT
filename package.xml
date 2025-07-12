@@ -7,7 +7,7 @@
   </description>
   <version>1.0.0</version>
   <date>2025-07-11</date>
-  <maintainer email="billy@knoxmakers.org">Knox Makers CNC Area Leads</maintainer>
+  <maintainer email="billy@knoxmakers.org">Billy Huddleston</maintainer>
   <license file="LICENSE">LGPL-2.1-or-later</license>
   <url type="repository" branch="main">https://github.com/Connor9220/NibblerBOT</url>
   <url type="bugtracker">https://github.com/Connor9220/NibblerBOT/issues</url>
