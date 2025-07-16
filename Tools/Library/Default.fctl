@@ -2,19 +2,19 @@
   "tools": [
     {
       "nr": 10,
-      "path": "1_2in 90 V-Groove Bit.fctb"
+      "path": "1_2in 90 V-Groove Bit 0.2500 loc 1.875 oal.fctb"
     },
     {
       "nr": 11,
-      "path": "1_4in 2 Flute Upcut Ball Nose Mill.fctb"
+      "path": "1_4in 2 Flute Upcut Ball Nose Mill 0.7500 loc 2.500 oal.fctb"
     },
     {
       "nr": 12,
-      "path": "1_4in 2 Flute Upcut End Mill.fctb"
+      "path": "1_4in 2 Flute Upcut End Mill 0.7500 loc 2.500 oal.fctb"
     },
     {
       "nr": 13,
-      "path": "1_4in 2 Flute Compression End Mill.fctb"
+      "path": "1_4in 2 Flute COMP End Mill 1.000 loc 2.500 oal.fctb"
     },
     {
       "nr": 14,
@@ -55,6 +55,14 @@
     {
       "nr": 25,
       "path": "1_2in Point Roundover Bit 0.500 loc 2.000 oal.fctb"
+    },
+    {
+      "nr": 26,
+      "path": "1_2in 2FL COMP End Mill TAC 1.250 loc 3.000 oal.fctb"
+    },
+    {
+      "nr": 27,
+      "path": "1_2in 2FL Spiral Down Cutl TAC 1.250 loc 3.000 oal.fctb"
     },
     {
       "nr": 30,

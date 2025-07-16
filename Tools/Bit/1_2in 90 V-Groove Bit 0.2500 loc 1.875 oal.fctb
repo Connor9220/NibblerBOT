@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "1/2\" 90 V-Groove Bit 0.2500 loc 1.875 oal",
+  "shape": "v-bit.fcstd",
+  "parameter": {
+    "Diameter": "0.5000 in",
+    "Length": "1.8750 in",
+    "CuttingEdgeHeight": "0.2500 in",
+    "CuttingEdgeAngle": "90.0000 °",
+    "TipDiameter": "0.0000 in",
+    "ShankDiameter": "0.2500 in",
+    "Stickout": "1.1250 in"
+  },
+  "attribute": {
+    "Chipload": "0.0000 in",
+    "Flutes": 2,
+    "Material": "Carbide"
+  }
+}
