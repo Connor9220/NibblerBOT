@@ -170,12 +170,4 @@ def job_file_filter(filename):
 
 sync_group(source_dir, source_subdirs["jobs"], "jobs", file_filter=job_file_filter)
 
-# Handle Library.fctl separately (if needed)
-library_file_source = os.path.join(source_dir, "Tools", "Library.fctl")
-if os.path.exists(library_file_source):
-    shutil.copy(library_file_source, tools_root_dir)
-    print(f"Copied Library.fctl to {tools_root_dir}")
-else:
-    print(f"Library.fctl not found in {os.path.join(source_dir, 'Tools')}. Skipping.")
-
 print("Installation complete!")
