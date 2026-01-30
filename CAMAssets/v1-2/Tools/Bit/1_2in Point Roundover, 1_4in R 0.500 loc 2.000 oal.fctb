@@ -1,0 +1,22 @@
+{
+  "attribute": {},
+  "id": "1_2in Point Roundover, 1_4in R 0.500 loc 2.000 oal",
+  "name": "1/2\" Point Roundover, 1/4\" R 0.500 loc 2.000 oal",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "CuttingEdgeHeight": "0.5000 in",
+    "CuttingRadius": "0.2500 in",
+    "Diameter": "0.5000 in",
+    "Flutes": 2,
+    "Length": "2.0000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.2500 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.1250 in",
+    "TipDiameter": "0.0000 in",
+    "Units": "Imperial"
+  },
+  "shape": "radius.fcstd",
+  "shape-type": "Radius",
+  "version": 2
+}

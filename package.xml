@@ -1,18 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
-  <name>NibblerBOT</name>
+  <name>Knox Makers FreeCAD Manager</name>
   <description>
-    Plugin for FreeCAD to support the NibblerBOT CNC machine at Knox Makers.
-    Provides up-to-date tool libraries, a custom post processor, job templates, and a PreferencePack for consistent configuration.
+    This addon provides a centralized way to manage themes, preferences, UI settings, and startup behavior across all FreeCAD installations at Knox Makers. It includes support for CNC machines at Knox Makers with up-to-date tool libraries, job templates, and custom post processors. Designed to keep laptops, shop machines, and individual users in sync, it ensures a shared and streamlined FreeCAD experience throughout the makerspace.
   </description>
-  <version>2025.07.16</version>
-  <date>2025.07.16</date>
+  <version>2025.07.27</version>
+  <date>2025.07.27</date>
   <maintainer email="billy@knoxmakers.org">Billy Huddleston</maintainer>
   <license file="LICENSE.txt">MIT</license>
-  <url type="repository" branch="main">https://github.com/Connor9220/NibblerBOT</url>
-  <url type="bugtracker">https://github.com/Connor9220/NibblerBOT/issues</url>
-  <icon>icons/NibblerBOT.svg</icon>
-
+  <url type="repository" branch="main">https://github.com/KnoxMakers/KM-FreeCAD</url>
+  <url type="bugtracker">https://github.com/KnoxMakers/KM-FreeCAD/issues</url>
+  <icon>icons/KnoxMakers.svg</icon>
   <content>
     <workbench>
       <subdirectory>./</subdirectory>

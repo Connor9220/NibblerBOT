@@ -1,0 +1,19 @@
+{
+  "attribute": {},
+  "id": "2in 3 Flute Carbide Insert Spoil Board Bit",
+  "name": "2\" 3 Flute Carbide Insert Spoil Board Bit",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "CuttingEdgeHeight": "0.4724 in",
+    "Diameter": "2.0000 in",
+    "Flutes": 3,
+    "Length": "2.8000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.5000 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.1050 in"
+  },
+  "shape": "endmill.fcstd",
+  "shape-type": "Endmill",
+  "version": 2
+}

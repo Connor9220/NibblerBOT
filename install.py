@@ -12,16 +12,54 @@ if not os.path.exists(freecad_dir):
     os.makedirs(freecad_dir)
     print(f"Created FreeCAD directory at: {freecad_dir}")
 
+# Check FreeCAD version
+version = FreeCAD.Version()
+major = int(version[0])
+minor = int(version[1])
+version_string = f"v{major}-{minor}"  # e.g., v1-1, v1-2
+
+# Determine the correct directory structure based on version
+if major < 1 or (major == 1 and minor < 1):
+    # FreeCAD 1.0.x - use legacy structure
+    freecad_assets_dir = freecad_dir
+    source_tools_base = "Tools"  # Source from Tools/ in repo
+else:
+    # FreeCAD 1.1+ - use versioned CAMAssets structure
+    freecad_assets_dir = os.path.join(freecad_dir, "CAMAssets", version_string)
+    if not os.path.exists(freecad_assets_dir):
+        os.makedirs(freecad_assets_dir)
+        print(f"Created FreeCAD CAMAssets directory at: {freecad_assets_dir}")
+    source_tools_base = os.path.join(
+        "CAMAssets", version_string, "Tools"
+    )  # Source from CAMAssets/v1-x/Tools/ in repo
+
 # Define default paths
-tool_bit_dir = os.path.join(freecad_dir, "Tools", "Bit")
-tool_lib_dir = os.path.join(freecad_dir, "Tools", "Library")
-tool_shape_dir = os.path.join(freecad_dir, "Tools", "Shape")
-tools_root_dir = os.path.join(freecad_dir, "Tools")  # Root of Tools directory
+tool_bit_dir = os.path.join(freecad_assets_dir, "Tools", "Bit")
+tool_lib_dir = os.path.join(freecad_assets_dir, "Tools", "Library")
+tool_shape_dir = os.path.join(freecad_assets_dir, "Tools", "Shape")
+tools_root_dir = os.path.join(freecad_assets_dir, "Tools")  # Root of Tools directory
 default_tool_lib_file = os.path.join(tool_lib_dir, "NibblerBOT.fctl")
 gcode_dir = os.path.join(freecad_dir, "Gcode")  # Gcode directory
+camcheck_dir = os.path.join(freecad_dir, "CAMCheck")  # CamCheck directory
+classes_dir = os.path.join(freecad_dir, "Classes")
+course_dir = os.path.join(classes_dir, "FreeCAD CAM 101 - Intro to CAM")
+lesson1_dir = os.path.join(course_dir, "Lesson 1")
+lesson2_dir = os.path.join(course_dir, "Lesson 2")
+lesson3_dir = os.path.join(course_dir, "Lesson 3")
 
 # Ensure directories exist
-for path in [tool_bit_dir, tool_lib_dir, tool_shape_dir, gcode_dir]:
+for path in [
+    tool_bit_dir,
+    tool_lib_dir,
+    tool_shape_dir,
+    gcode_dir,
+    camcheck_dir,
+    classes_dir,
+    course_dir,
+    lesson1_dir,
+    lesson2_dir,
+    lesson3_dir,
+]:
     if not os.path.exists(path):
         os.makedirs(path)
         print(f"Created directory: {path}")
@@ -46,6 +84,44 @@ if not prefs.GetString("DefaultFilePath"):
 if not prefs.GetString("LastFileToolLibrary"):
     prefs.SetString("LastFileToolLibrary", default_tool_lib_file)
     print(f"Set LastFileToolLibrary to: {default_tool_lib_file}")
+
+# Set new parameters for FreeCAD 1.1+
+if major >= 1 and minor >= 1:
+    tools_prefs = FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/CAM/Tools")
+
+    camassets_root = os.path.join(freecad_dir, "CAMAssets")
+    if not tools_prefs.GetString("ToolPath"):
+        tools_prefs.SetString("ToolPath", camassets_root)
+        print(f"Set ToolPath to: {camassets_root}")
+
+    if not tools_prefs.GetString("LastToolLibrary"):
+        tools_prefs.SetString("LastToolLibrary", "toolbitlibrary://NibblerBOT")
+        print(f"Set LastToolLibrary to: toolbitlibrary://NibblerBOT")
+
+    if not tools_prefs.GetString("LastToolLibrarySortKey"):
+        tools_prefs.SetString("LastToolLibrarySortKey", "tool_no")
+        print(f"Set LastToolLibrarySortKey to: tool_no")
+
+    # Prevent FreeCAD from offering to migrate CAMAssets
+    migration_prefs = FreeCAD.ParamGet(
+        "User parameter:BaseApp/Preferences/Mod/CAM/Migration"
+    )
+    offered_versions = migration_prefs.GetString("OfferedToMigrateCAMAssets")
+
+    if offered_versions:
+        # Check if current version is already in the list
+        version_list = [v.strip() for v in offered_versions.split(",")]
+        if version_string not in version_list:
+            version_list.append(version_string)
+            new_versions = ",".join(version_list)
+            migration_prefs.SetString("OfferedToMigrateCAMAssets", new_versions)
+            print(
+                f"Added {version_string} to OfferedToMigrateCAMAssets: {new_versions}"
+            )
+    else:
+        # First time setting it
+        migration_prefs.SetString("OfferedToMigrateCAMAssets", version_string)
+        print(f"Set OfferedToMigrateCAMAssets to: {version_string}")
 
 
 # Set PostProcessor preferences
@@ -104,14 +180,18 @@ if not prefs.GetString("PostProcessorDefault"):
 # Copy all files from source directories to target directories
 source_dir = os.path.dirname(__file__)  # Directory containing this script
 source_subdirs = {
-    "Tools/Bit": tool_bit_dir,
-    "Tools/Library": tool_lib_dir,
-    "Tools/Shape": tool_shape_dir,
+    os.path.join(source_tools_base, "Bit"): tool_bit_dir,
+    os.path.join(source_tools_base, "Library"): tool_lib_dir,
+    os.path.join(source_tools_base, "Shape"): tool_shape_dir,
     "PostProcessor": os.path.join(FreeCAD.getUserAppDataDir(), "Macro"),
-    "jobs": freecad_dir,
+    "Jobs": freecad_dir,
+    "Classes/FreeCAD CAM 101 - Intro to CAM/Lesson 1": lesson1_dir,
+    "Classes/FreeCAD CAM 101 - Intro to CAM/Lesson 2": lesson2_dir,
+    "Classes/FreeCAD CAM 101 - Intro to CAM/Lesson 3": lesson3_dir,
 }
 
 manifest_path = os.path.join(freecad_dir, ".nibbler_manifest.json")
+
 
 def load_manifest():
     if os.path.exists(manifest_path):
@@ -119,16 +199,20 @@ def load_manifest():
             return json.load(f)
     return {}
 
+
 def save_manifest(manifest):
     with open(manifest_path, "w") as f:
         json.dump(manifest, f, indent=2)
+
 
 def sync_group(source_path, target_path, group_name, file_filter=None):
     manifest = load_manifest()
     managed_files = set(manifest.get(group_name, []))
     source_files = set(
-        f for f in os.listdir(source_path)
-        if os.path.isfile(os.path.join(source_path, f)) and (file_filter(f) if file_filter else True)
+        f
+        for f in os.listdir(source_path)
+        if os.path.isfile(os.path.join(source_path, f))
+        and (file_filter(f) if file_filter else True)
     )
 
     # Remove files that were managed but no longer exist in source
@@ -149,25 +233,20 @@ def sync_group(source_path, target_path, group_name, file_filter=None):
     manifest[group_name] = list(source_files)
     save_manifest(manifest)
 
-# Sync tool directories
-for subdir, destination in list(source_subdirs.items())[:3]:
+
+# Sync tool, class, and job directories
+for subdir, destination in source_subdirs.items():
     source_path = os.path.join(source_dir, subdir)
     if os.path.exists(source_path):
-        sync_group(source_path, destination, subdir)
+        if subdir == "Jobs":
+
+            def job_file_filter(filename):
+                return filename.startswith("job_") and filename.endswith(".json")
+
+            sync_group(source_path, destination, subdir, file_filter=job_file_filter)
+        else:
+            sync_group(source_path, destination, subdir)
     else:
         print(f"Source directory not found: {source_path}. Skipping.")
-
-# Sync PostProcessor directory
-post_processor_source = os.path.join(source_dir, "PostProcessor")
-if os.path.exists(post_processor_source):
-    sync_group(post_processor_source, source_subdirs["PostProcessor"], "PostProcessor")
-else:
-    print(f"PostProcessor directory not found: {post_processor_source}. Skipping.")
-
-# Sync job_*.json files in root
-def job_file_filter(filename):
-    return filename.startswith("job_") and filename.endswith(".json")
-
-sync_group(source_dir, source_subdirs["jobs"], "jobs", file_filter=job_file_filter)
 
 print("Installation complete!")

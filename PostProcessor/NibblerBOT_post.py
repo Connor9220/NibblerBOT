@@ -150,9 +150,7 @@ BASE_URL = "https://nibblerbot.knoxmakers.org:1337/"
 
 
 # Preamble text will appear at the beginning of the GCODE output file.
-PREAMBLE = """G17 G54 G40 G49 G80 G90
-M208
-"""
+PREAMBLE = """G17 G54 G40 G49 G80 G90"""
 
 # Postamble text will appear following the last operation.
 POSTAMBLE = """M05
@@ -235,23 +233,16 @@ def processArguments(argstring):
 
 
 def export(objectslist, filename, argstring):
-    if not processArguments(argstring):
-        return None
+    # Prompt for dust collection options before anything else
     global UNITS
     global UNIT_FORMAT
     global UNIT_SPEED_FORMAT
+    global PREAMBLE, POSTAMBLE
     global blockDelete
 
-    tool_list = set()
-
-    for obj in objectslist:
-        if not hasattr(obj, "Path"):
-            print(
-                "the object "
-                + obj.Name
-                + " is not a path. Please select only path and Compounds."
-            )
-            return None
+    app = QtWidgets.QApplication.instance()
+    if app is None:
+        app = QtWidgets.QApplication([])
 
     missing_feed_speeds = []
     for obj in objectslist:
@@ -302,6 +293,36 @@ def export(objectslist, filename, argstring):
 
         dialog.exec_()
         return None
+
+    options_dialog = DustCollectionOptionsDialog()
+    if options_dialog.exec_():
+        dust_on, dust_off = options_dialog.get_options()
+    else:
+        print("User cancelled dust collection options dialog.")
+        return None
+
+    # Add M208 at end of PREAMBLE if dust_on is checked and not already present
+    if dust_on and "M208" not in PREAMBLE:
+        PREAMBLE = PREAMBLE.rstrip() + "\nM208\n"
+
+    # Add M209 before M300 in POSTAMBLE if dust_off is checked and not already present
+    if dust_off and "M209" not in POSTAMBLE:
+        if "M300" in POSTAMBLE:
+            POSTAMBLE = POSTAMBLE.replace("M300", "M209\nM300")
+
+    if not processArguments(argstring):
+        return None
+
+    tool_list = set()
+
+    for obj in objectslist:
+        if not hasattr(obj, "Path"):
+            print(
+                "the object "
+                + obj.Name
+                + " is not a path. Please select only path and Compounds."
+            )
+            return None
 
     print("postprocessing...")
     gcode = ""
@@ -443,7 +464,7 @@ def export(objectslist, filename, argstring):
 
     if FreeCAD.GuiUp and SHOW_EDITOR:
         final = gcode
-        if len(gcode) > 100000:
+        if len(gcode) > 200000:
             print("Skipping editor since output is greater than 100kb")
         else:
             dia = PostUtils.GCodeEditorDialog()
@@ -1167,3 +1188,32 @@ class ComboBoxWithSearch(QtWidgets.QComboBox):
     def addItems(self, items):
         for item in items:
             self.addItem(item)
+
+
+class DustCollectionOptionsDialog(QtWidgets.QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Dust Collection Options")
+        self.setLayout(QtWidgets.QVBoxLayout())
+
+        self.start_checkbox = QtWidgets.QCheckBox(
+            "Turn Dust Collection ON at Start (M208)"
+        )
+        self.start_checkbox.setChecked(True)
+        self.layout().addWidget(self.start_checkbox)
+
+        self.end_checkbox = QtWidgets.QCheckBox(
+            "Turn Dust Collection OFF at End (M209)"
+        )
+        self.end_checkbox.setChecked(False)
+        self.layout().addWidget(self.end_checkbox)
+
+        button_box = QtWidgets.QDialogButtonBox(
+            QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel
+        )
+        button_box.accepted.connect(self.accept)
+        button_box.rejected.connect(self.reject)
+        self.layout().addWidget(button_box)
+
+    def get_options(self):
+        return self.start_checkbox.isChecked(), self.end_checkbox.isChecked()

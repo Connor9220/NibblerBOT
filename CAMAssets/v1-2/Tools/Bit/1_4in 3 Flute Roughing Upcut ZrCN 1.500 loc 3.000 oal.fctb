@@ -1,0 +1,20 @@
+{
+  "attribute": {},
+  "id": "1_4in 3 Flute Roughing Upcut ZrCN 1.500 loc 3.000 oal",
+  "name": "1/4\" 3 Flute Roughing Upcut ZrCN 1.500 loc 3.000 oal",
+  "parameter": {
+    "Chipload": "0.0014 in",
+    "CuttingEdgeHeight": "1.5000 in",
+    "Diameter": "0.2500 in",
+    "Flutes": 3,
+    "Length": "3.0000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.2500 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.9000 in",
+    "Units": "Imperial"
+  },
+  "shape": "endmill.fcstd",
+  "shape-type": "Endmill",
+  "version": 2
+}

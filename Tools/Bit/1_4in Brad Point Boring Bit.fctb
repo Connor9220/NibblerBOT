@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "1/4\" Brad Point Boring Bit",
+  "shape": "drill.fcstd",
+  "parameter": {
+    "Diameter": "0.2500 in",
+    "Length": "57.000 mm",
+    "TipAngle": "8.0000 °",
+    "Stickout": "1.2500 in"
+  },
+  "attribute": {
+    "Chipload": "0.0000 in",
+    "Flutes": 2,
+    "Material": "Carbide"
+  }
+}

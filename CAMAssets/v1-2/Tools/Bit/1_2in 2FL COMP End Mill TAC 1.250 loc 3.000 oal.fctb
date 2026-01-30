@@ -1,0 +1,20 @@
+{
+  "attribute": {},
+  "id": "1_2in 2FL COMP End Mill TAC 1.250 loc 3.000 oal",
+  "name": "1/2\" 2FL COMP End Mill TAC 1.250 loc 3.000 oal",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "CuttingEdgeHeight": "1.2500 in",
+    "Diameter": "0.5000 in",
+    "Flutes": 2,
+    "Length": "3.0000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.5000 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.5000 in",
+    "Units": "Imperial"
+  },
+  "shape": "endmill.fcstd",
+  "shape-type": "Endmill",
+  "version": 2
+}

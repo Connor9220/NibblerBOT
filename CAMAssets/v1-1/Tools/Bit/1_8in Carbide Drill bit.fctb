@@ -1,0 +1,18 @@
+{
+  "attribute": {},
+  "id": "1_8in Carbide Drill bit",
+  "name": "1/8\" Carbide Drill bit",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "Diameter": "0.1250 in",
+    "Flutes": 2,
+    "Length": "2.5000 in",
+    "Material": "Carbide",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.3650 in",
+    "TipAngle": "118.0000\u00b0"
+  },
+  "shape": "drill.fcstd",
+  "shape-type": "Drill",
+  "version": 2
+}

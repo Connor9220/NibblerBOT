@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "name": "1/2\" 2FL Spiral Down Cut TAC 1.250 loc 3.000 oal",
+  "shape": "endmill.fcstd",
+  "parameter": {
+    "Diameter": "0.5000 in",
+    "Length": "3.0000 in",
+    "CuttingEdgeHeight": "1.2500 in",
+    "ShankDiameter": "0.5000 in",
+    "Stickout": "1.5000 in"
+  },
+  "attribute": {
+    "Chipload": "0.0000 in",
+    "Flutes": 2,
+    "Material": "Carbide",
+    "SpindleDirection": "Forward"
+  }
+}

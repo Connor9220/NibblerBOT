@@ -1,0 +1,22 @@
+{
+  "attribute": {},
+  "id": "1_4in 60 V-Groove Bit 0.2160 loc 2.000 oal",
+  "name": "1/4\" 60 V-Groove Bit 0.2160 loc 2.000 oal",
+  "parameter": {
+    "Chipload": "0.0014 in",
+    "CuttingEdgeAngle": "60.0000\u00b0",
+    "CuttingEdgeHeight": "0.2160 in",
+    "Diameter": "0.2500 in",
+    "Flutes": 2,
+    "Length": "2.0000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.2500 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.1500 in",
+    "TipDiameter": "0.0000 in",
+    "Units": "Imperial"
+  },
+  "shape": "v-bit.fcstd",
+  "shape-type": "VBit",
+  "version": 2
+}

@@ -1,6 +1,6 @@
-# NibblerBOT FreeCAD Plugin
+# Knox Makers FreeCAD Manager
 
-This plugin provides an integrated environment for working with the NibblerBOT CNC machine at Knox Makers. It ensures users have an up-to-date set of tools, post processor, job templates, and preferences for seamless operation within FreeCAD.
+  This addon provides a centralized way to manage themes, preferences, UI settings, and startup behavior across all FreeCAD installations at Knox Makers. It includes support for CNC machines at Knox Makers with up-to-date tool libraries, job templates, and custom post processors. Designed to keep laptops, shop machines, and individual users in sync, it ensures a shared and streamlined FreeCAD experience throughout the makerspace.
 
 ## Features
 
@@ -41,4 +41,4 @@ Tools/
 
 ## About
 
-This plugin is maintained by Knox Makers for the NibblerBOT CNC machine. For questions or contributions, please contact the Knox Makers
+This plugin is maintained by Knox Makers. For questions or contributions, please contact the maintainer at Knox Makers.

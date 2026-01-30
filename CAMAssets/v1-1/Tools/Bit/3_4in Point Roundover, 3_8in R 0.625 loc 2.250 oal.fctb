@@ -1,0 +1,21 @@
+{
+  "attribute": {},
+  "id": "3_4in Point Roundover, 3_8in R 0.625 loc 2.250 oal",
+  "name": "3/4\" Point Roundover, 3/8\" R 0.625 loc 2.250 oal",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "CuttingEdgeHeight": "0.6250 in",
+    "CuttingRadius": "0.3750 in",
+    "Diameter": "0.7500 in",
+    "Flutes": 2,
+    "Length": "2.2500 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.5000 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.1250 in",
+    "TipDiameter": "0.0000 in"
+  },
+  "shape": "radius.fcstd",
+  "shape-type": "Radius",
+  "version": 2
+}

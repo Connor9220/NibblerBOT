@@ -1,0 +1,19 @@
+{
+  "attribute": {},
+  "id": "1_4in 2 Flute Upcut End Mill 0.7500 loc 2.500 oal",
+  "name": "1/4\" 2 Flute Upcut End Mill 0.7500 loc 2.500 oal",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "CuttingEdgeHeight": "0.7500 in",
+    "Diameter": "0.2500 in",
+    "Flutes": 2,
+    "Length": "2.5000 in",
+    "Material": "Carbide",
+    "ShankDiameter": "0.2500 in",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.3250 in"
+  },
+  "shape": "endmill.fcstd",
+  "shape-type": "Endmill",
+  "version": 2
+}

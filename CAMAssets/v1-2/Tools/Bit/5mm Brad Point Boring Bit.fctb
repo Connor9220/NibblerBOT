@@ -1,0 +1,19 @@
+{
+  "attribute": {},
+  "id": "5mm Brad Point Boring Bit",
+  "name": "5mm Brad Point Boring Bit",
+  "parameter": {
+    "Chipload": "0.0000 in",
+    "Diameter": "0.1969 in",
+    "Flutes": 2,
+    "Length": "2.2441 in",
+    "Material": "Carbide",
+    "SpindleDirection": "Forward",
+    "Stickout": "1.2500 in",
+    "TipAngle": "8.0000\u00b0",
+    "Units": "Imperial"
+  },
+  "shape": "drill.fcstd",
+  "shape-type": "Drill",
+  "version": 2
+}
